@@ -37,11 +37,11 @@ body {
 #top-banner {
   position: relative;
   margin: 0 auto;
-  height: 260px;
+  height: 285px;
   width: 1020px;
-  background: #0a0a0a url(/img/top-banner-bg.gif) no-repeat top left;
-  border-bottom: 8px solid #333;
+  background: #f0f0f0 url(/img/track_circle_stereo.png) no-repeat top center;
   color: #fff;
+  border-bottom: 10px solid #666;
 
 }
 
