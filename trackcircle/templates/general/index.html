@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h2>Home</h2>
+  Welcome to this blog. 
+  {% if me %}
+    You're logged in as {{ me.data['name'] }} with ID {{ me.data['id'] }}!
+  {% endif %}
+  <h2>Uploaded Tracks</h2>
+  <ul>
+    {% for track in tracks %}
+      <li><a href="{{ track.s3_url }}">{{ track }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
