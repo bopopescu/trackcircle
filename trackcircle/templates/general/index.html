@@ -6,9 +6,16 @@
     You're logged in as {{ me.data['name'] }} with ID {{ me.data['id'] }}!
   {% endif %}
   <h2>Uploaded Tracks</h2>
-  <ul>
-    {% for track in tracks %}
-      <li><a href="{{ track.s3_url }}">{{ track }}</a></li>
-    {% endfor %}
-  </ul>
+
+  {% for track in tracks %}
+    <p id="audioplayer_{{ track.id }}">Alternate content for track.</p>  
+    {{ track.s3_url }}
+    <div>
+      <script type="text/javascript">  
+      AudioPlayer.embed("audioplayer_{{ track.id }}", {soundFile: "{{ track.s3_url }}"});  
+      </script>
+    </div>
+    <br /><br />
+  {% endfor %}
+
 {% endblock %}

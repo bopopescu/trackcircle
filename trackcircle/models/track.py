@@ -39,6 +39,6 @@ class Track(Base, BaseModel):
     def s3_url(self):
         key = bucket.get_key(self.url)
         if key:
-            return key.generate_url(7200)
+            return 'http://dev.monospectra.com/%s' % self.url
         return "#notfound"
         

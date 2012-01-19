@@ -103,7 +103,11 @@ def before_request():
             g.user.facebook_info = facebook.get('/me')
         else:
             redirect(url_for('general.logout'))
-        
+
+@mod.route('/crossdomain.xml')
+def crossdomain():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'crossdomain.xml')
+    
 @mod.route('/img/<name>.<ext>')
 def img(name, ext):
     mimetype = "image/png"

@@ -3,6 +3,12 @@
   <title>Trackcircle</title>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  <script type="text/javascript" language="Javascript" src="{{ url_for('static', filename='audio-player.js') }}"></script>
+  <script type="text/javascript">  
+      AudioPlayer.setup("{{ url_for('static', filename='player.swf') }}", {  
+          width: 290  
+      });  
+  </script>
 </head>
 <body>
   <div class="topbar-wrapper" style="z-index: 5;">
