@@ -1,11 +1,13 @@
 {% extends "layout.html" %}
 {% block body %}
-  <h2>Upload</h2>
+  <h2>Uploadx</h2>
   <form method="POST" enctype="multipart/form-data" action="{{ url_for('.upload') }}">
-    <input type="file" name="uploaded_file" />
-    <input type="submit" value="Upload" />
+    <div id="uploader">
+      <input type="file" name="uploaded_file" />
+      <input type="submit" value="Upload" />
+    </div>
   </form>
   
-  
-  You're logged in as {{ me.name }} with ID {{ me.id }}!
+  <ul id="result">
+  </ul>
 {% endblock %}

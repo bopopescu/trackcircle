@@ -1,13 +1,15 @@
 import os
 from flask import Flask, request, session, g, redirect, url_for, \
-            render_template, flash, send_from_directory, Blueprint
+            render_template, flash, send_from_directory, Blueprint, \
+            Response, make_response
 from trackcircle import app, bucket
 from trackcircle.models import User
 from trackcircle.models import Track
 from trackcircle.wrappers import auth_required
 from trackcircle.facebook import facebook
 from werkzeug import secure_filename
-from mutagen.easyid3 import EasyID3
+from datetime import datetime
+
 
 from pprint import pprint
 
@@ -80,10 +82,7 @@ def upload():
             key.set_contents_from_filename(saved_filename)
             key.set_acl('public-read')
             
-            tags = EasyID3(saved_filename)
-            if tags:
-                track.artist = tags['artist'][0]
-                track.title = tags['title'][0]
+            track.set_id3_by_file(saved_filename)
                 
             track.create()
             os.unlink(saved_filename)
@@ -94,6 +93,8 @@ def upload():
         return redirect(url_for('general.upload'))        
     return render_template('general/upload.html', me=g.user)
 
+
+    
 @mod.route('/logout')
 @auth_required
 def logout():

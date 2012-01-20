@@ -1,15 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
-  <h2>Home</h2>
-  Welcome to this blog. 
-  {% if me %}
-    You're logged in as {{ me.name }} with ID {{ me.id }}!
-  {% endif %}
   <h2>Uploaded Tracks</h2>
 
   {% for track in tracks %}
-    <p id="audioplayer_{{ track.id }}">Alternate content for track.</p>  
-    {{ track.url }}
+    <div>
+      <img src="http://graph.facebook.com/{{ track.user.facebook_id }}/picture?type=square" />
+      {{ track.artist }} - {{ track.year }} - {{ track.title }}
+    </div>
+    <p id="audioplayer_{{ track.id }}">Alternate content for track.</p>
+    
     <div>
       <script type="text/javascript">  
       AudioPlayer.embed("audioplayer_{{ track.id }}", {soundFile: "{{ track.url }}"});  

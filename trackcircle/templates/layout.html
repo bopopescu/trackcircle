@@ -3,6 +3,12 @@
   <title>Trackcircle</title>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='jquery.ui.plupload.css') }}">
+  <!-- Third party script for BrowserPlus runtime (Google Gears included in Gears runtime now) -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+  
+  <!-- Load plupload and all it's runtimes and finally the jQuery UI queue widget -->
+  <script type="text/javascript" src="{{ url_for('static', filename='plupload.full.js') }}"></script>
   <script type="text/javascript" language="Javascript" src="{{ url_for('static', filename='audio-player.js') }}"></script>
   <script type="text/javascript">  
       AudioPlayer.setup("{{ url_for('static', filename='player.swf') }}", {  
@@ -15,7 +21,7 @@
     <div class="topbar" data-dropdown="dropdown" >
       <div class="topbar-inner">
         <div class="container">
-          <h3><a href="#">(TrackCircle)</a></h3>
+          <h3><a href="#">TrackCircle</a></h3>
 
           <ul class="nav">
             <li class="active"><a href="{{ url_for('general.index') }}">Tracks</a></li>
