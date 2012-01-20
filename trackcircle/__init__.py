@@ -1,13 +1,14 @@
-import trackcircle.config
-import boto
 from flask import Flask, g, session, redirect, url_for
-from .database import db_session
+import trackcircle.config
+from trackcircle.database import db_session
+import boto
+
 
 app = Flask(__name__)
 app.config.from_object(config)
 
 s3 = boto.connect_s3()
-bucket = s3.create_bucket('dev.monospectra.com')  # bucket names must be unique
+bucket = s3.create_bucket(app.config['AMAZON_S3_BUCKET'])  # bucket names must be unique
 
 
 from trackcircle.facebook import facebook

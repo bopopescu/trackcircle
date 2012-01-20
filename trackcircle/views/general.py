@@ -7,13 +7,15 @@ from trackcircle.models import Track
 from trackcircle.wrappers import auth_required
 from trackcircle.facebook import facebook
 from werkzeug import secure_filename
+from mutagen.easyid3 import EasyID3
 
-
+from pprint import pprint
 
 mod = Blueprint('general', __name__)
-ALLOWED_EXTENSIONS = set(['mp3'])
+
 
 def allowed_file(filename):
+    ALLOWED_EXTENSIONS = set(['mp3'])
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
@@ -22,7 +24,7 @@ def index():
     me = None
     tracks = Track.query.order_by(Track.id.desc()).all()
     if g.user:
-        me = g.user.facebook_info
+        me = g.user
     return render_template('general/index.html', me=me, tracks=tracks)
 
 @mod.route('/login', methods=['GET', 'POST'])
@@ -46,9 +48,11 @@ def authorized(resp):
     if 'oauth_token' in session and me.data['id']:
         user = User.query.filter(User.facebook_id == me.data['id']).first()
         if not user:
-            user = User(me.data['id'], me.data['email'])
+            user = User(me.data['id'])
             user.create()
         session['user_id'] = user.id
+        user.facebook_update(facebook)
+        user.save()
     else:
         return 'Shit. oauth token dead or facebook.me didnt work'
     flash('You\'ve logged in!')
@@ -63,23 +67,32 @@ def upload():
         file = request.files['uploaded_file']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            track = Track(g.user.id, filename, filename)
             saved_filename = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(saved_filename)
             
-            keyname = 'trackcircle-dev/tracks/%s' % track.original_filename
-            key = bucket.new_key(keyname)
+            
+            track = Track(g.user.id, filename)
+            if bucket.get_key(track.keyname):
+                flash('Song already exists on server')
+                return redirect(url_for('general.upload'))
+                
+            key = bucket.new_key(track.keyname)
             key.set_contents_from_filename(saved_filename)
             key.set_acl('public-read')
-            track.url = keyname
+            
+            tags = EasyID3(saved_filename)
+            if tags:
+                track.artist = tags['artist'][0]
+                track.title = tags['title'][0]
+                
             track.create()
             os.unlink(saved_filename)
-            flash('Uploaded new song "%s"' % track.url)            
+            flash('Uploaded new song "%s"' % track.keyname)            
             return redirect(url_for('general.index'))     
         else:
             flash('There was an error. Either no file or file not allowed')        
         return redirect(url_for('general.upload'))        
-    return render_template('general/upload.html', me=g.user.facebook_info)
+    return render_template('general/upload.html', me=g.user)
 
 @mod.route('/logout')
 @auth_required
@@ -100,7 +113,6 @@ def before_request():
     if 'oauth_token' in session:
         if 'user_id' in session:
             g.user = User.query.filter(User.id == session['user_id']).first()
-            g.user.facebook_info = facebook.get('/me')
         else:
             redirect(url_for('general.logout'))
 
