@@ -1,20 +1,25 @@
 {% extends "layout.html" %}
 {% block body %}
   <h2>Uploaded Tracks</h2>
-
+  <p>
   {% for track in tracks %}
-    <div>
-      <img src="http://graph.facebook.com/{{ track.user.facebook_id }}/picture?type=square" />
-      {{ track.artist }} - {{ track.year }} - {{ track.title }}
+    <div class="row">
+      <div class="span2">
+        <img src="http://graph.facebook.com/{{ track.user.facebook_id }}/picture?type=square" />        
+      </div>
+      <div class="span9" style="height: 100px">
+        <div>
+          <p id="audioplayer_{{ track.id }}"></p>
+        </div>
+        {{ track.artist }} - {{ track.title }} 
+        <span class="label success">{{ track.year }}</span>
+        <br />
+        <em>uploaded by {{ track.user.first_name }}</em>
+        <script type="text/javascript">  
+        AudioPlayer.embed("audioplayer_{{ track.id }}", {soundFile: "{{ track.url }}"});  
+        </script>
+      </div>
     </div>
-    <p id="audioplayer_{{ track.id }}">Alternate content for track.</p>
-    
-    <div>
-      <script type="text/javascript">  
-      AudioPlayer.embed("audioplayer_{{ track.id }}", {soundFile: "{{ track.url }}"});  
-      </script>
-    </div>
-    <br /><br />
   {% endfor %}
-
+  </p>
 {% endblock %}
