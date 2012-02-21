@@ -11,46 +11,8 @@
   </script>
 </head>
 <body>
-  <div class="topbar-wrapper" style="z-index: 5;">
-    <div class="topbar" data-dropdown="dropdown" >
-      <div class="topbar-inner">
-        <div class="container">
-          <h3><a href="#">TrackCircle</a></h3>
-
-          <ul class="nav">
-            <li class="active"><a href="{{ url_for('general.index') }}">Tracks</a></li>
-            <li><a href="{{ url_for('general.upload') }}">Upload</a></li>
-            <!--
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle">Dropdown</a>
-
-              <ul class="dropdown-menu">
-                <li><a href="#">Secondary link</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Another link</a></li>
-              </ul>
-            </li>
-            -->
-          </ul>
-          <ul class="nav secondary-nav">              
-            {% if not g.user %}
-              <li><a href="{{ url_for('general.login') }}">Log In</a></li>
-            {% else %}
-
-              <li><a href="{{ url_for('general.logout') }}">Log Out</a></li>
-            {% endif %}              
-          </ul>
-
-        </div>
-      </div><!-- /topbar-inner -->
-    </div><!-- /topbar -->
-  </div><!-- /topbar-wrapper -->
-  <div id="top-banner">
-    
-  </div>
   <div class="container" id="main-container">
-
+    
     <div class="row">
       <div id="content-container" class="span12">
         
@@ -59,10 +21,32 @@
         {% endfor %}
         {% block body %}{% endblock %}    
       </div>
-      <div id="right-bar" class="span4">
-        {% block sidebar %}{% endblock %}  
-      </div>
+
       <div class="clear"></div>
+    </div>
+    <div class="row">
+      <div class="span12">
+        <ul class="nav nav-pills pull-left">
+          <li>
+            <a href="{{ url_for('general.index') }}">Tracks</a></li>
+          </li>
+          {% if not g.user %}
+            <li>
+              <a href<a href="{{ url_for('general.login') }}">Log In</a>
+            </li>
+          {% else %}
+            <li>
+              <li><a href="{{ url_for('general.upload') }}">Upload New</a></li>
+            </li>
+            <li>
+              <li><a href="{{ url_for('general.manage') }}">Manage</a></li>
+            </li>
+            <li>
+              <a href="{{ url_for('general.logout') }}">Log Out</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
     </div>
   </div>
 </body>
