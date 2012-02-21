@@ -9,45 +9,42 @@
           width: 290  
       });  
   </script>
+  <script type="text/javascript" src="http://use.typekit.com/ybo5pqd.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
 <body>
   <div class="container" id="main-container">
-    
-    <div class="row">
-      <div id="content-container" class="span12">
-        
-        {% for message in get_flashed_messages() %}
-          <div class="alert-message">{{ message }}</div>
-        {% endfor %}
-        {% block body %}{% endblock %}    
-      </div>
-
-      <div class="clear"></div>
-    </div>
-    <div class="row">
-      <div class="span12">
-        <ul class="nav nav-pills pull-left">
+    <div id="logo-column">
+      <img src="/img/tempoarcade-logo-190.png" />
+      <br />
+      <ul class="nav nav-pills nav-stacked pull-right">
+        <li>
+          <a href="{{ url_for('general.index') }}">Tracks</a></li>
+        </li>
+        {% if not g.user %}
           <li>
-            <a href="{{ url_for('general.index') }}">Tracks</a></li>
+            <a href<a href="{{ url_for('general.login') }}">Log In</a>
           </li>
-          {% if not g.user %}
-            <li>
-              <a href<a href="{{ url_for('general.login') }}">Log In</a>
-            </li>
-          {% else %}
-            <li>
-              <li><a href="{{ url_for('general.upload') }}">Upload New</a></li>
-            </li>
-            <li>
-              <li><a href="{{ url_for('general.manage') }}">Manage</a></li>
-            </li>
-            <li>
-              <a href="{{ url_for('general.logout') }}">Log Out</a>
-            </li>
-          {% endif %}
-        </ul>
-      </div>
+        {% else %}
+          <li>
+            <li><a href="{{ url_for('general.upload') }}">Upload New</a></li>
+          </li>
+          <li>
+            <li><a href="{{ url_for('general.manage') }}">Manage</a></li>
+          </li>
+          <li>
+            <a href="{{ url_for('general.logout') }}">Log Out</a>
+          </li>
+        {% endif %}
+      </ul>
     </div>
+    <div id="player-column">
+      {% for message in get_flashed_messages() %}
+        <div class="alert-message">{{ message }}</div>
+      {% endfor %}
+      {% block body %}{% endblock %}
+    </div>
+    <div class="clear"></div>
   </div>
 </body>
 </html>

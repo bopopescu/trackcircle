@@ -1,25 +1,50 @@
 {% extends "layout.html" %}
 {% block body %}
-  <h2>Uploaded Tracks</h2>
-  <p>
-  {% for track in tracks %}
-    <div class="row">
-      <div class="span2">
-        <img src="http://graph.facebook.com/{{ track.user.facebook_id }}/picture?type=square" />        
-      </div>
-      <div class="span9" style="height: 100px">
-        <div>
-          <p id="audioplayer_{{ track.id }}"></p>
-        </div>
-        {{ track.artist }} - {{ track.title }} 
-        <span class="label success">{{ track.year }}</span>
-        <br />
-        <em>uploaded by {{ track.user.first_name }}</em>
-        <script type="text/javascript">  
-        AudioPlayer.embed("audioplayer_{{ track.id }}", {soundFile: "{{ track.url }}"});  
-        </script>
+  <div id="album-art-main">
+    <img src="{{ first_track.artwork_url }}" />
+  </div>
+  <div id="controls-column">
+    <img src="/img/mock-controls.png" />
+    <br />
+    <div id="playlist-art-container">
+      <div id="playlist-art-images">
+        {% for track in tracks %}<img src="{{ track.artwork_url }}" width="70" height="70" />{% endfor %}
       </div>
     </div>
-  {% endfor %}
-  </p>
+    
+    {% for track in tracks %}
+      <div class="track-row">
+        {{ track.artist }} - {{ track.title }} 
+      </div>
+    {% endfor %}
+  </div>
+  <div class="clear"></div>
+  <div id="current-track-container">
+    <div id="current-track-title">
+      {{ first_track.title }}
+    </div>
+    <div id="current-track-meta">
+      {{ first_track.artist }} <br />
+      {{ first_track.year }} 
+    </div>
+    <div class="clear"></div>
+    
+    <div id="current-track-details-container">
+      <div id="current-track-notes">
+        {{ first_track.notes }}
+      </div>
+      <div id="current-track-options">
+        <a href="{{ first_track.url }}"><img src="/img/mock-download-button.png" /></a>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+
 {% endblock %}
+<div>
+  <p id="audioplayer_{{ track.id }}"></p>
+</div>
+<img src="http://graph.facebook.com/{{ track.user.facebook_id }}/picture?type=square" />  
+<script type="text/javascript">  
+AudioPlayer.embed("audioplayer_{{ track.id }}", {soundFile: "{{ track.url }}"});  
+</script>

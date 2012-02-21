@@ -27,7 +27,9 @@ def index():
     tracks = Track.query.order_by(Track.id.desc()).all()
     if g.user:
         me = g.user
-    return render_template('general/index.html', me=me, tracks=tracks)
+    first_track = tracks[0]
+    tracks = tracks[1:len(tracks)]
+    return render_template('general/index.html', me=me, first_track=first_track, tracks=tracks)
 
 @mod.route('/login', methods=['GET', 'POST'])
 def login():

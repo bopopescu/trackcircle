@@ -21,7 +21,7 @@ class Track(Base, BaseModel):
     year = Column(Integer)
     bpm = Column(Integer, default=0)
     artwork_url = Column(String(255))
-    notes = Column(String(255))
+    notes = Column(Text)
     
     def set_id3_by_file(self, sourcefile):
         tags = EasyID3(sourcefile)
