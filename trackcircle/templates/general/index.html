@@ -9,9 +9,11 @@
         {% for track in tracks %}<img src="{{ track.artwork_url }}" width="70" height="70" />{% endfor %}
       </div>
     </div>
-    <img src="/img/mock-controls.png" />
+    <div id="playlist-controls-container">
+      <img src="/img/mock-controls.png" />
+    </div>
     
-    
+  
     {% for track in tracks %}
       <div class="track-row">
         {{ track.artist }} - {{ track.title }} 
@@ -42,7 +44,8 @@
         <div>
           <ul class="unstyled" id="current-track-listed-info">
             <li>{{ first_track.prettytime }}</li>
-          
+            <li>11.3 MB</li>
+            <li>320 Kbps</li>
           
             {% if first_track.bpm and first_track.bpm > 0 %}
               <li>{{ first_track.bpm }}</li>

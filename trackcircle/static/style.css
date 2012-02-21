@@ -10,7 +10,7 @@ a:link, a:hover, a:visited, a:active {
 body {
   /* padding-top: 40px; */
   background-color: #fff;
-  padding-top: 10px;
+  padding-top: 50px;
 }
 
 #main-container {
@@ -43,14 +43,18 @@ body {
 #playlist-art-container {
   width: 260px;
   height: 70px;
-  border: 5px solid #111;
+  border: 5px solid #222222;
   overflow: hidden;
-  margin-bottom: 10px;
+  margin-bottom: 1px;
 }
 
 #playlist-art-images {
   width: 2000px;
   height: 70px;
+}
+
+#playlist-controls-container {
+  margin-bottom: 37px;
 }
 
 #controls-column {
@@ -93,22 +97,22 @@ body {
 
 #current-track-notes {
   float: left;
-  width: 380px;
+  width: 420px;
   height: 185px;
   overflow: auto;
-  padding: 0px 10px;
+  padding: 0 15px;
   line-height: 2em;
   color: #333;
   margin-right: 10px;
   text-align: justify;
-  text-indent: 1em;
 }
 
 #current-track-options {
   float: right;
   text-align: right;
-  width: 260px;
-  line-height: 1.2em;
+  margin-top: 9px;
+  width: 200px;
+  line-height: 1.3em;
 }
 
 #current-track-options div {
@@ -116,12 +120,13 @@ body {
 }
 
 #current-track-listed-info {
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
   margin-right: 10px;
   color: #11636e;
 }
 
 #current-track-listed-info li {
-  font-style: italic;
   font-weight: bold;
 }
 
