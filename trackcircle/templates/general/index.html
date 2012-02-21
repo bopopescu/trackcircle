@@ -4,13 +4,13 @@
     <img src="{{ first_track.artwork_url }}" />
   </div>
   <div id="controls-column">
-    <img src="/img/mock-controls.png" />
-    <br />
     <div id="playlist-art-container">
       <div id="playlist-art-images">
         {% for track in tracks %}<img src="{{ track.artwork_url }}" width="70" height="70" />{% endfor %}
       </div>
     </div>
+    <img src="/img/mock-controls.png" />
+    
     
     {% for track in tracks %}
       <div class="track-row">
@@ -34,7 +34,23 @@
         {{ first_track.notes }}
       </div>
       <div id="current-track-options">
-        <a href="{{ first_track.url }}"><img src="/img/mock-download-button.png" /></a>
+        <!--
+        <div>
+          <a href="{{ first_track.url }}"><img src="/img/mock-download-button.png" /></a>
+        </div>
+        -->
+        <div>
+          <ul class="unstyled" id="current-track-listed-info">
+            <li>{{ first_track.prettytime }}</li>
+          
+          
+            {% if first_track.bpm and first_track.bpm > 0 %}
+              <li>{{ first_track.bpm }}</li>
+            {% endif %}
+          </ul>
+        </div>
+        
+        
       </div>
       <div class="clear"></div>
     </div>

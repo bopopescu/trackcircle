@@ -66,3 +66,12 @@ class Track(Base, BaseModel):
         if not self.keyname:
             self.keyname = self.generatekeyname(self.original_filename)
         return 'http://%s/%s' % (AMAZON_S3_BUCKET, self.keyname,)
+    
+    @property
+    def prettytime(self):
+        format = None
+        if not format:
+            # Monday, January 1 2012
+            format = "%A, %B %d %Y"
+        return self.created_time.strftime(format)
+            

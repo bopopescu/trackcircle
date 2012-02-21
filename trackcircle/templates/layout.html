@@ -16,27 +16,6 @@
   <div class="container" id="main-container">
     <div id="logo-column">
       <img src="/img/tempoarcade-logo-190.png" />
-      <br />
-      <ul class="nav nav-pills nav-stacked pull-right">
-        <li>
-          <a href="{{ url_for('general.index') }}">Tracks</a></li>
-        </li>
-        {% if not g.user %}
-          <li>
-            <a href<a href="{{ url_for('general.login') }}">Log In</a>
-          </li>
-        {% else %}
-          <li>
-            <li><a href="{{ url_for('general.upload') }}">Upload New</a></li>
-          </li>
-          <li>
-            <li><a href="{{ url_for('general.manage') }}">Manage</a></li>
-          </li>
-          <li>
-            <a href="{{ url_for('general.logout') }}">Log Out</a>
-          </li>
-        {% endif %}
-      </ul>
     </div>
     <div id="player-column">
       {% for message in get_flashed_messages() %}
@@ -45,6 +24,30 @@
       {% block body %}{% endblock %}
     </div>
     <div class="clear"></div>
+    <div class="row" style="margin-top: 50px; border-top: 2px solid #eee; padding-top: 20px;">
+      <div class="span12">
+        <ul class="nav nav-pills">
+          <li>
+            <a href="{{ url_for('general.index') }}">Tracks</a></li>
+          </li>
+          {% if not g.user %}
+            <li>
+              <a href<a href="{{ url_for('general.login') }}">Log In</a>
+            </li>
+          {% else %}
+            <li>
+              <li><a href="{{ url_for('general.upload') }}">Upload New</a></li>
+            </li>
+            <li>
+              <li><a href="{{ url_for('general.manage') }}">Manage</a></li>
+            </li>
+            <li>
+              <a href="{{ url_for('general.logout') }}">Log Out</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
   </div>
 </body>
 </html>
