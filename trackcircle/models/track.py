@@ -20,6 +20,7 @@ class Track(Base, BaseModel):
     title = Column(String(255))
     year = Column(Integer)
     bpm = Column(Integer, default=0)
+    artwork_url = Column(String(255))
     notes = Column(String(255))
     
     def set_id3_by_file(self, sourcefile):
@@ -47,7 +48,7 @@ class Track(Base, BaseModel):
         self.title = title
         self.notes = notes
         self.keyname = self.generate_keyname()
-        # 01_** Cub//--_Keep_Shelly_In_Athens_Remix.mp3
+
     
     def __repr__(self):
         if self.artist == '' and self.title == '':
