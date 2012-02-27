@@ -16,7 +16,7 @@
   
     {% for track in tracks %}
       <div class="track-row">
-        {{ track.artist }} - {{ track.title }} 
+        <a href="#" onclick="javascript:playSong('track-{{ track.id }}')">{{ track.artist }}</a> - {{ track.title }} 
       </div>
     {% endfor %}
   </div>

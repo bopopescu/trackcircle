@@ -4,10 +4,36 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   <script type="text/javascript" language="Javascript" src="{{ url_for('static', filename='audio-player.js') }}"></script>
+  <script type="text/javascript" language="Javascript" src="{{ url_for('static', filename='soundmanager2.js') }}"></script>
   <script type="text/javascript">  
+      var sounds = [];
       AudioPlayer.setup("{{ url_for('static', filename='player.swf') }}", {  
           width: 290  
       });  
+      soundManager.url = '/static/'; // directory where SM2 .SWFs live
+      soundManager.debugMode = true;
+      
+      soundManager.onready(function(){
+
+        // SM2 has loaded - now you can create and play sounds!
+        
+        {% for track in tracks %}
+          var smID = 'track-{{ track.id }}';
+          var smSound = soundManager.createSound({
+            id: smID,
+            url: '{{ track.url }}'
+          });
+          sounds[smID] = smSound;
+        {% endfor %}
+
+        //mySound.play();
+
+      });
+      
+      
+      function playSong(trackID) {
+        sounds[trackID].play();
+      }
   </script>
   <script type="text/javascript" src="http://use.typekit.com/ybo5pqd.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
