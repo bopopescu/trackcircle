@@ -15,6 +15,7 @@
       });  
       soundManager.url = '/static/'; // directory where SM2 .SWFs live
       soundManager.debugMode = true;
+      soundManager.flashPollingInterval = 100;
       
       soundManager.onready(function(){
 
@@ -44,6 +45,13 @@
         
         currentTrack = soundManager.getSoundById(trackID);
         if (currentTrack) {
+          
+          
+          currentTrack.options.whileplaying = function () {
+            $('#track-control-time-elapsed').text(this.position + 'ms');
+            $('#track-progress-bar').css('width', (Math.floor((this.position / this.duration) * 100)) + '%');
+          };
+          
           currentTrack.play();
         }
       }
