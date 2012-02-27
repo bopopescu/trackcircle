@@ -10,7 +10,7 @@ a:link, a:hover, a:visited, a:active {
 body {
   /* padding-top: 40px; */
   background-color: #fff;
-  padding-top: 50px;
+  padding-top: 20px;
 }
 
 #main-container {
@@ -27,22 +27,25 @@ body {
   float: left;
   width: 190px;
   text-align: right;
+  margin-top: 52px;
   margin-right: 10px;
 }
 
-/* Audio Player container column for artowrk, playlist & content */
+/* Audio Player container column for artwork, playlist & content */
 
 #player-column {
   float: left;
-  width: 750px;
+  width: 735px;
 }
 
 #album-art-main {
   float: left;
   width: 450px;
   height: 450px;
+  margin-top: 52px;
   margin-right: 10px;
 }
+
 
 
 
@@ -51,7 +54,7 @@ body {
 #controls-column {
   float: left;
   width: 275px;
-  height: 450px;
+  height: 520px;
 }
 
 #now-playing-booth {
@@ -104,9 +107,6 @@ body {
   
 }
 
-
-
-
 #track-control-prev-pause-next {
   float: left;
   width: 275px;
@@ -118,23 +118,22 @@ body {
 
 
 #current-track-container {
-  border-top: 10px solid #222222;
-  margin-top: 10px;
+  border-top: 5px solid #222222;
   padding-top: 10px;
 }
 
 #current-track-title {
-  float: left;
-  width: 440px;
-  padding-left: 10px;
-  font-size: 48px;
-  line-height: 48px;
-  color: #004852;
+  padding: 20px 30px;
+  font-size: 36px;
+  line-height: 36px;
+  font-weight: 300;
+  font-style: italic;
+  color: #10022c;
 }
 
 #current-track-meta {
   float: right;
-  width: 260px;
+  width: 360px;
   text-align: right;
   font-size: 22px;
   text-transform: uppercase;
@@ -182,6 +181,11 @@ body {
 
 #current-track-listed-info li {
   font-weight: bold;
+}
+
+#playlist {
+  height: 285px;
+  overflow: hidden;
 }
 
 .track-row {

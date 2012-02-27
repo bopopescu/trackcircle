@@ -54,6 +54,17 @@
         return undefined;
       }
       
+      function initializeTrack(trackID) {
+        var data = getTrackData(trackID);
+        var sound = soundManager.createSound({
+          id: trackID,
+          url: data.url
+        });
+        return sound;
+      }
+        
+          
+      
       
       function playSong(trackID) {
         if (currentTrack) {
@@ -61,22 +72,40 @@
         }
         
         currentTrack = soundManager.getSoundById(trackID);
+        
+        if (!currentTrack) {
+          currentTrack = initializeTrack(trackID);
+        }
+        
         if (currentTrack) {
           
           var data = getTrackData(trackID);
           
+          currentTrack.options.whileloading = function () {
+            $('#now-playing-time-elapsed').text(Math.ceil(this.bytesLoaded / 1024) + 'kB');
+            $('#now-playing-progress-bar').css('width', (Math.abs(Math.floor((this.bytesLoaded / this.bytesTotal) * 100) - 2)) + '%');
+          };
+          
           currentTrack.options.whileplaying = function () {
-            $('#now-playing-time-elapsed').text(this.position + 'ms');
+            $('#now-playing-time-elapsed').text(getFormattedTime(this.position));
             $('#now-playing-progress-bar').css('width', (Math.abs(Math.floor((this.position / this.duration) * 100) - 2)) + '%');
           };
+          
+          currentTrack.options.onfinish = function () {
+            nextSong();
+          };
+          
           
           $('#current-track-album-art').attr('src', data.artwork_url);
           $('#current-track-title').text(data.title);
           $('#current-track-artist').text(data.artist);
           $('#current-track-year').text(data.year);
           $('#current-track-notes').text(data.notes);
+          
           $('.track-row').removeClass('active');
           $('#track-row-' + data.id).addClass('active');
+          
+          
           
           
           currentTrack.play();
@@ -100,13 +129,30 @@
       }
       
       function prevSong() {
-        var targetTrack = tracklist[tracklist];
+        var targetTrack = tracklist[tracklist.length-1];
         var index = jQuery.inArray(currentTrack.sID, tracklist);
         if (index != 0) {
           targetTrack = tracklist[index-1];
         }
 
         playSong(targetTrack);
+      }
+      
+      function getFormattedTime(millisecs) {
+        if (millisecs <= 0) { return "0:00" }
+        
+        var mins = 0, secs = 0;
+        secs = Math.floor(millisecs / 1000);
+        mins = Math.floor(secs / 60);
+        if (mins > 0) {
+          secs -= mins * 60;
+        }
+        
+        if (secs < 10) {
+          secs = "0" + secs;
+        }
+        
+        return (mins + ":" + secs);
       }
               
             
@@ -117,7 +163,7 @@
 <body>
   <div class="container" id="main-container">
     <div id="logo-column">
-      <img src="/img/tempoarcade-logo-190.png" />
+      <a href="{{ url_for('general.index') }}"><img src="/img/tempoarcade-logo-190.png" /></a>
     </div>
     <div id="player-column">
       {% for message in get_flashed_messages() %}

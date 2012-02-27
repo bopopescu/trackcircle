@@ -26,10 +26,13 @@ class Track(Base, BaseModel):
     def set_id3_by_file(self, sourcefile):
         tags = EasyID3(sourcefile)
         if tags:
-            self.artist = tags.get('artist')[0] if tags.get('artist') else ''
-            self.title = tags.get('title')[0] if tags.get('title') else ''
-            self.year = int(tags.get('date')[0]) if tags.get('date') else 0
-            self.bpm = int(tags.get('bpm')[0]) if tags.get('bpm') else 0
+            try:
+                self.artist = tags.get('artist')[0] if tags.get('artist') else ''
+                self.title = tags.get('title')[0] if tags.get('title') else ''
+                self.year = int(tags.get('date')[0]) if tags.get('date') else 0
+                self.bpm = int(tags.get('bpm')[0]) if tags.get('bpm') else 0
+            except ValueError:
+                pass
         
         
     def generate_keyname(self):

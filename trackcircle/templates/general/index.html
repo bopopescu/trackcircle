@@ -18,11 +18,11 @@
       <div class="clear"></div>
       
       <div id="now-playing-meta">
-        <div id="now-playing-bitrate">
-          256 KBPS
-        </div>
         <div id="now-playing-time-elapsed">
           0:53
+        </div>
+        <div id="now-playing-bitrate">
+          256 KBPS
         </div>
       </div>
       <div class="clear"></div>
@@ -35,21 +35,23 @@
       <div class="clear"></div>
     </div>
     
-  
+    <div id="playlist">
     {% for track in tracks %}
       <div class="track-row" id="track-row-{{ track.id }}">
         <a href="#" onclick="javascript:playSong('track-{{ track.id }}')">{{ track.artist }}</a> - {{ track.title }} 
       </div>
     {% endfor %}
+    </div>
   </div>
   <div class="clear"></div>
+  <div id="current-track-title" class="tk-freight-sans-pro">
+    {{ first_track.title }}
+  </div>
   <div id="current-track-container">
-    <div id="current-track-title">
-      {{ first_track.title }}
-    </div>
+    
     <div id="current-track-meta">
-      <div id="current-track-artist">{{ first_track.artist }} </div>
-      <div id="current-track-year">{{ first_track.year }} </div>
+      <div id="current-track-artist">{{ first_track.artist }}</div>
+      <div id="current-track-year"> {{ first_track.year }}</div>
     </div>
     <div class="clear"></div>
     
@@ -64,15 +66,16 @@
         </div>
         -->
         <div>
+          <!--
           <ul class="unstyled" id="current-track-listed-info">
             <li>{{ first_track.prettytime }}</li>
             <li>11.3 MB</li>
-            <li>320 Kbps</li>
           
             {% if first_track.bpm and first_track.bpm > 0 %}
               <li>{{ first_track.bpm }}</li>
             {% endif %}
           </ul>
+          -->
         </div>
         
         
