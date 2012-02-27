@@ -24,7 +24,7 @@ def allowed_file(filename):
 @mod.route('/')
 def index():
     me = None
-    tracks = Track.query.order_by(Track.id.desc()).limit(10).all()
+    tracks = Track.query.order_by(Track.id.desc()).limit(8).all()
     if g.user:
         me = g.user
     first_track = tracks[0]

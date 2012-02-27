@@ -14,23 +14,27 @@ body {
 }
 
 #main-container {
-
+  width: 960px;
 }
 
 #content-container {
   padding: 20px 10px;
 }
 
+/* Let main column for logo and menu */
+
 #logo-column {
   float: left;
   width: 190px;
-  margin-right: 10px;
   text-align: right;
+  margin-right: 10px;
 }
+
+/* Audio Player container column for artowrk, playlist & content */
 
 #player-column {
   float: left;
-  width: 730px;
+  width: 750px;
 }
 
 #album-art-main {
@@ -40,61 +44,78 @@ body {
   margin-right: 10px;
 }
 
-#playlist-art-container {
-  width: 260px;
-  height: 70px;
-  border: 5px solid #222222;
-  overflow: hidden;
-  margin-bottom: 1px;
-}
 
-#playlist-art-images {
-  width: 2000px;
-  height: 70px;
-}
 
-#playlist-controls-container {
-  margin-bottom: 37px;
-}
-
-#track-progress {
-  float: left;
-  width: 170px;
-  margin-right: 1px;
-  background-color: #222222;
-  height: 30px;
-}
-
-#track-progress-bar {
-  background-color: #2e8894;
-  width: 10%;
-  height: 10px;
-  margin: 10px 5px;
-}
-
-#track-control-play-pause {
-  float: left;
-  width: 90px;
-  height: 29px;
-}
-
-#track-control-prev-next {
-  float: left;
-  width: 150px;
-  height: 30px;
-}
-
-#track-control-time-elapsed {
-  float: right;
-  width: 100px;
-  font-weight: bold;
-}
+/* Right hand side column */
 
 #controls-column {
   float: left;
-  width: 270px;
+  width: 275px;
   height: 450px;
 }
+
+#now-playing-booth {
+  width: 275px;
+  height: 157px;
+  background: transparent url(/img/now-playing-booth.png) no-repeat top left;
+  margin-bottom: 1px;
+}
+
+#now-playing-user-pic {
+  float: left;
+  margin-top: 5px;
+  margin-left: 192px;
+  
+  width: 50px;
+  height: 48px;
+  overflow: hidden;
+}
+
+
+#now-playing-progress {
+  float: left;
+  margin-top: 30px;
+  margin-left: 40px;
+  width: 120px;
+  background-color: #e0d2ff;
+  height: 10px;
+}
+
+#now-playing-progress-bar {
+  background-color: #43306b;
+  width: 10%;
+  height: 8px;
+  margin: 1px;
+}
+
+#now-playing-meta {
+  float: left;
+  width: 90px;
+  height: 35px;
+  margin-top: 8px;
+  margin-left: 70px;
+  text-align: right;
+  color: #e0d2ff;
+  font-size: 14px;
+  text-shadow: 0 1px 0 #000;
+  line-height: 12px;
+  text-transform: uppercase;
+  
+  
+}
+
+
+
+
+#track-control-prev-pause-next {
+  float: left;
+  width: 275px;
+  height: 45px;
+  margin-left: 2px;
+  margin-bottom: 10px;
+}
+
+
 
 #current-track-container {
   border-top: 10px solid #222222;
@@ -169,6 +190,12 @@ body {
   margin-bottom: 1px;
   color: #696969;
   text-shadow: 0 1px 0 #fff;
+}
+
+.track-row.active {
+  background-color: #cdc7d8;
+  color: #43306b;
+  font-weight: bold;
 }
 
 

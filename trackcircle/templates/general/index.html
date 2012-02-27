@@ -4,39 +4,42 @@
     <img id="current-track-album-art" src="{{ first_track.artwork_url }}" />
   </div>
   <div id="controls-column">
-    <div id="playlist-art-container">
-      <div id="playlist-art-images">
-        {% for track in tracks %}{% if track != first_track %}<img src="{{ track.artwork_url }}" width="70" height="70" />{% endif %}{% endfor %}
+    <div id="now-playing-booth">
+      <div id="now-playing-user-pic">
+        <img src="http://graph.facebook.com/{{ first_track.user.facebook_id }}/picture?type=square" />  
       </div>
-    </div>
-    <div id="playlist-controls-container">
-      <div id="track-progress">
-        <div id="track-progress-bar">
+      <div class="clear"></div>
+      
+      <div id="now-playing-progress">
+        <div id="now-playing-progress-bar">
         
         </div>
       </div>
-      <div id="track-control-play-pause">
-        <a href="#" onclick="javascript:pauseResume()"><img src="/img/control-pause.png" /></a>
-        <a href="#" onclick="javascript:pauseResume()"><img src="/img/control-play.png" /></a>
+      <div class="clear"></div>
+      
+      <div id="now-playing-meta">
+        <div id="now-playing-bitrate">
+          256 KBPS
+        </div>
+        <div id="now-playing-time-elapsed">
+          0:53
+        </div>
       </div>
       <div class="clear"></div>
-      <div id="track-control-prev-next">
-        <a href="#" onclick="javascript:prevSong()"><img src="/img/control-previous.png" /></a>
-        <a href="#" onclick="javascript:nextSong()"><img src="/img/control-next.png" /></a>
-      </div>
-      <div id="track-control-time-elapsed">
-        0:53 / 4:20
+          
+    </div>
+    <div id="playlist-controls-container">
+      <div id="track-control-prev-pause-next">
+        <a href="#" onclick="javascript:prevSong()"><img src="/img/control-previous.png" /></a><a href="#" onclick="javascript:pauseResume()"><img src="/img/control-pause.png" /></a><a href="#" onclick="javascript:nextSong()"><img src="/img/control-next.png" /></a>
       </div>
       <div class="clear"></div>
     </div>
     
   
     {% for track in tracks %}
-      {% if track != first_track %}
-        <div class="track-row">
-          <a href="#" onclick="javascript:playSong('track-{{ track.id }}')">{{ track.artist }}</a> - {{ track.title }} 
-        </div>
-      {% endif %}
+      <div class="track-row" id="track-row-{{ track.id }}">
+        <a href="#" onclick="javascript:playSong('track-{{ track.id }}')">{{ track.artist }}</a> - {{ track.title }} 
+      </div>
     {% endfor %}
   </div>
   <div class="clear"></div>

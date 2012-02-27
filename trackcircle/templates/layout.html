@@ -66,8 +66,8 @@
           var data = getTrackData(trackID);
           
           currentTrack.options.whileplaying = function () {
-            $('#track-control-time-elapsed').text(this.position + 'ms');
-            $('#track-progress-bar').css('width', (Math.floor((this.position / this.duration) * 100)) + '%');
+            $('#now-playing-time-elapsed').text(this.position + 'ms');
+            $('#now-playing-progress-bar').css('width', (Math.abs(Math.floor((this.position / this.duration) * 100) - 2)) + '%');
           };
           
           $('#current-track-album-art').attr('src', data.artwork_url);
@@ -75,6 +75,9 @@
           $('#current-track-artist').text(data.artist);
           $('#current-track-year').text(data.year);
           $('#current-track-notes').text(data.notes);
+          $('.track-row').removeClass('active');
+          $('#track-row-' + data.id).addClass('active');
+          
           
           currentTrack.play();
         }
