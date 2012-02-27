@@ -5,8 +5,11 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   <script type="text/javascript" language="Javascript" src="{{ url_for('static', filename='audio-player.js') }}"></script>
   <script type="text/javascript" language="Javascript" src="{{ url_for('static', filename='soundmanager2.js') }}"></script>
+  <script type="text/javascript" language="Javascript" src="{{ url_for('static', filename='jquery-1.7.1.min.js') }}"></script>
   <script type="text/javascript">  
-      var sounds = [];
+      var tracks = [];
+      var trackIDs = [];
+      var currentTrack;
       AudioPlayer.setup("{{ url_for('static', filename='player.swf') }}", {  
           width: 290  
       });  
@@ -23,17 +26,55 @@
             id: smID,
             url: '{{ track.url }}'
           });
-          sounds[smID] = smSound;
+          trackIDs.push(smID);
+          if (!currentTrack) {
+            currentTrack = smSound;
+          }
         {% endfor %}
-
+        
         //mySound.play();
-
+        
       });
       
       
       function playSong(trackID) {
-        sounds[trackID].play();
+        if (currentTrack) {
+          currentTrack.stop();
+        }
+        
+        currentTrack = soundManager.getSoundById(trackID);
+        if (currentTrack) {
+          currentTrack.play();
+        }
       }
+      
+      function pauseResume() {
+        if (currentTrack) {
+          currentTrack.togglePause();
+        }
+      }
+      
+      function nextSong() {
+        var targetTrack = trackIDs[0];
+        var index = jQuery.inArray(currentTrack.sID, trackIDs);
+        if (index < trackIDs.length - 1) {
+          targetTrack = trackIDs[index+1];
+        }
+
+        playSong(targetTrack);
+      }
+      
+      function prevSong() {
+        var targetTrack = trackIDs[trackIDs];
+        var index = jQuery.inArray(currentTrack.sID, trackIDs);
+        if (index != 0) {
+          targetTrack = trackIDs[index-1];
+        }
+
+        playSong(targetTrack);
+      }
+              
+            
   </script>
   <script type="text/javascript" src="http://use.typekit.com/ybo5pqd.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>

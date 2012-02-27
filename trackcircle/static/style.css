@@ -57,6 +57,39 @@ body {
   margin-bottom: 37px;
 }
 
+#track-progress {
+  float: left;
+  width: 170px;
+  margin-right: 1px;
+  background-color: #222222;
+  height: 30px;
+}
+
+#track-progress-bar {
+  background-color: #2e8894;
+  width: 10%;
+  height: 10px;
+  margin: 10px 5px;
+}
+
+#track-control-play-pause {
+  float: left;
+  width: 90px;
+  height: 29px;
+}
+
+#track-control-prev-next {
+  float: left;
+  width: 150px;
+  height: 30px;
+}
+
+#track-control-time-elapsed {
+  float: right;
+  width: 100px;
+  font-weight: bold;
+}
+
 #controls-column {
   float: left;
   width: 270px;
@@ -64,7 +97,7 @@ body {
 }
 
 #current-track-container {
-  border-top: 10px solid #111;
+  border-top: 10px solid #222222;
   margin-top: 10px;
   padding-top: 10px;
 }
