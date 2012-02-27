@@ -60,6 +60,21 @@ class Track(Base, BaseModel):
         if self.artist == '' or self.title == '':
             return self.original_filename
         return "%s - %s" % (self.artist, self.title)
+    
+    def serialized(self):
+        dictionary = {}
+        dictionary['id'] = self.id
+        dictionary['classname'] = 'Track'
+        #dictionary['created_time'] = self.created_time;
+        dictionary['original_filename'] = self.original_filename
+        dictionary['artist'] = self.artist
+        dictionary['title'] = self.title
+        dictionary['notes'] = self.notes
+        dictionary['artwork_url'] = self.artwork_url
+        dictionary['keyname'] = self.keyname
+        dictionary['url'] = self.url
+        dictionary['prettytime'] = self.prettytime
+        return dictionary
         
     @property 
     def url(self):
@@ -74,4 +89,5 @@ class Track(Base, BaseModel):
             # Monday, January 1 2012
             format = "%A, %B %d %Y"
         return self.created_time.strftime(format)
+        
             

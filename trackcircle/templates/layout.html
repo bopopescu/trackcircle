@@ -7,12 +7,17 @@
   <script type="text/javascript" language="Javascript" src="{{ url_for('static', filename='soundmanager2.js') }}"></script>
   <script type="text/javascript" language="Javascript" src="{{ url_for('static', filename='jquery-1.7.1.min.js') }}"></script>
   <script type="text/javascript">  
-      var tracks = [];
-      var trackIDs = [];
-      var currentTrack;
+      
       AudioPlayer.setup("{{ url_for('static', filename='player.swf') }}", {  
           width: 290  
-      });  
+      }); 
+      
+      var tracklist = [];
+      {% autoescape false %}
+      var trackInfo = {{ tracksjson }};
+      {% endautoescape %}
+      var currentTrack;
+       
       soundManager.url = '/static/'; // directory where SM2 .SWFs live
       soundManager.debugMode = true;
       soundManager.flashPollingInterval = 100;
@@ -27,7 +32,7 @@
             id: smID,
             url: '{{ track.url }}'
           });
-          trackIDs.push(smID);
+          tracklist.push(smID);
           if (!currentTrack) {
             currentTrack = smSound;
           }
@@ -36,6 +41,18 @@
         //mySound.play();
         
       });
+      
+      function getTrackData(trackID) {
+        var track;
+        for (var i in trackInfo) {
+          track = trackInfo[i];
+          var smID = 'track-' + track.id;
+          if (smID == trackID) {
+            return track;
+          }
+        }
+        return undefined;
+      }
       
       
       function playSong(trackID) {
@@ -46,11 +63,18 @@
         currentTrack = soundManager.getSoundById(trackID);
         if (currentTrack) {
           
+          var data = getTrackData(trackID);
           
           currentTrack.options.whileplaying = function () {
             $('#track-control-time-elapsed').text(this.position + 'ms');
             $('#track-progress-bar').css('width', (Math.floor((this.position / this.duration) * 100)) + '%');
           };
+          
+          $('#current-track-album-art').attr('src', data.artwork_url);
+          $('#current-track-title').text(data.title);
+          $('#current-track-artist').text(data.artist);
+          $('#current-track-year').text(data.year);
+          $('#current-track-notes').text(data.notes);
           
           currentTrack.play();
         }
@@ -62,21 +86,21 @@
         }
       }
       
+      
       function nextSong() {
-        var targetTrack = trackIDs[0];
-        var index = jQuery.inArray(currentTrack.sID, trackIDs);
-        if (index < trackIDs.length - 1) {
-          targetTrack = trackIDs[index+1];
+        var targetTrack = tracklist[0];
+        var index = jQuery.inArray(currentTrack.sID, tracklist);
+        if (index < tracklist.length - 1) {
+          targetTrack = tracklist[index+1];
         }
-
         playSong(targetTrack);
       }
       
       function prevSong() {
-        var targetTrack = trackIDs[trackIDs];
-        var index = jQuery.inArray(currentTrack.sID, trackIDs);
+        var targetTrack = tracklist[tracklist];
+        var index = jQuery.inArray(currentTrack.sID, tracklist);
         if (index != 0) {
-          targetTrack = trackIDs[index-1];
+          targetTrack = tracklist[index-1];
         }
 
         playSong(targetTrack);

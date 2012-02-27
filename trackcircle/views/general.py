@@ -10,7 +10,7 @@ from trackcircle.facebook import facebook
 from werkzeug import secure_filename
 from datetime import datetime
 
-
+import json
 from pprint import pprint
 
 mod = Blueprint('general', __name__)
@@ -28,8 +28,10 @@ def index():
     if g.user:
         me = g.user
     first_track = tracks[0]
-    tracks = tracks[1:len(tracks)]
-    return render_template('general/index.html', me=me, first_track=first_track, tracks=tracks)
+    #tracks = tracks[1:len(tracks)]
+    tracksjson = json.dumps([t.serialized() for t in tracks])
+    print tracksjson
+    return render_template('general/index.html', me=me, first_track=first_track, tracks=tracks, tracksjson=tracksjson)
 
 @mod.route('/login', methods=['GET', 'POST'])
 def login():

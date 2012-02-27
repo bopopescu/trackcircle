@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 {% block body %}
   <div id="album-art-main">
-    <img src="{{ first_track.artwork_url }}" />
+    <img id="current-track-album-art" src="{{ first_track.artwork_url }}" />
   </div>
   <div id="controls-column">
     <div id="playlist-art-container">
       <div id="playlist-art-images">
-        {% for track in tracks %}<img src="{{ track.artwork_url }}" width="70" height="70" />{% endfor %}
+        {% for track in tracks %}{% if track != first_track %}<img src="{{ track.artwork_url }}" width="70" height="70" />{% endif %}{% endfor %}
       </div>
     </div>
     <div id="playlist-controls-container">
@@ -32,9 +32,11 @@
     
   
     {% for track in tracks %}
-      <div class="track-row">
-        <a href="#" onclick="javascript:playSong('track-{{ track.id }}')">{{ track.artist }}</a> - {{ track.title }} 
-      </div>
+      {% if track != first_track %}
+        <div class="track-row">
+          <a href="#" onclick="javascript:playSong('track-{{ track.id }}')">{{ track.artist }}</a> - {{ track.title }} 
+        </div>
+      {% endif %}
     {% endfor %}
   </div>
   <div class="clear"></div>
@@ -43,8 +45,8 @@
       {{ first_track.title }}
     </div>
     <div id="current-track-meta">
-      {{ first_track.artist }} <br />
-      {{ first_track.year }} 
+      <div id="current-track-artist">{{ first_track.artist }} </div>
+      <div id="current-track-year">{{ first_track.year }} </div>
     </div>
     <div class="clear"></div>
     
