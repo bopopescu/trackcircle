@@ -164,17 +164,9 @@
   <div class="container" id="main-container">
     <div id="logo-column">
       <a href="{{ url_for('general.index') }}"><img src="/img/tempoarcade-logo-190.png" /></a>
-    </div>
-    <div id="player-column">
-      {% for message in get_flashed_messages() %}
-        <div class="alert-message">{{ message }}</div>
-      {% endfor %}
-      {% block body %}{% endblock %}
-    </div>
-    <div class="clear"></div>
-    <div class="row" style="margin-top: 50px; border-top: 2px solid #eee; padding-top: 20px;">
-      <div class="span12">
-        <ul class="nav nav-pills">
+      <div id="nav-left">
+        <ul class="nav nav-list">
+          <li class="nav-header">Welcome</li>
           <li>
             <a href="{{ url_for('general.index') }}">Tracks</a></li>
           </li>
@@ -183,6 +175,7 @@
               <a href<a href="{{ url_for('general.login') }}">Log In</a>
             </li>
           {% else %}
+            <li class="nav-header">Member Options</li>
             <li>
               <li><a href="{{ url_for('general.upload') }}">Upload New</a></li>
             </li>
@@ -196,6 +189,13 @@
         </ul>
       </div>
     </div>
+    <div id="player-column">
+      {% for message in get_flashed_messages() %}
+        <div class="alert-message">{{ message }}</div>
+      {% endfor %}
+      {% block body %}{% endblock %}
+    </div>
+    <div class="clear"></div>
   </div>
 </body>
 </html>

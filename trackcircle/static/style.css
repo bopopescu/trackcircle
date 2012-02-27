@@ -31,6 +31,12 @@ body {
   margin-right: 10px;
 }
 
+#nav-left {
+  text-align: right;
+  margin-top: 50px;
+  margin-right: 10px;
+}
+
 /* Audio Player container column for artwork, playlist & content */
 
 #player-column {
