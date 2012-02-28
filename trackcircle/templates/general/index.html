@@ -1,5 +1,8 @@
 {% extends "layout.html" %}
 {% block body %}
+  <div id="album-art-main">
+    <img id="current-track-album-art" src="{{ first_track.artwork_url }}" />
+  </div>
   
   <div id="controls-column">
     <div id="now-playing-booth">
@@ -41,9 +44,7 @@
     {% endfor %}
     </div>
   </div>
-  <div id="album-art-main">
-    <img id="current-track-album-art" src="{{ first_track.artwork_url }}" />
-  </div>
+  
   <div class="clear"></div>
   <div id="current-track-title" class="tk-freight-sans-pro">
     {{ first_track.title }}
