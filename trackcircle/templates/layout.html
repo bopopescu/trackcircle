@@ -166,7 +166,7 @@
       <a href="{{ url_for('general.index') }}"><img src="/img/tempoarcade-logo-190.png" /></a>
       <div id="nav-left">
         <ul class="nav nav-list">
-          <li class="nav-header">Welcome</li>
+          <li class="nav-header">The Arcade</li>
           <li>
             <a href="{{ url_for('general.index') }}">Tracks</a></li>
           </li>
@@ -175,12 +175,12 @@
               <a href<a href="{{ url_for('general.login') }}">Log In</a>
             </li>
           {% else %}
-            <li class="nav-header">Member Options</li>
+            <li class="nav-header">Welcome Back, {{ g.user.first_name }}</li>
             <li>
-              <li><a href="{{ url_for('general.upload') }}">Upload New</a></li>
+              <li><a href="{{ url_for('general.upload') }}">New Song</a></li>
             </li>
             <li>
-              <li><a href="{{ url_for('general.manage') }}">Manage</a></li>
+              <li><a href="{{ url_for('general.manage') }}">Manage Songs</a></li>
             </li>
             <li>
               <a href="{{ url_for('general.logout') }}">Log Out</a>
@@ -190,9 +190,6 @@
       </div>
     </div>
     <div id="player-column">
-      {% for message in get_flashed_messages() %}
-        <div class="alert-message">{{ message }}</div>
-      {% endfor %}
       {% block body %}{% endblock %}
     </div>
     <div class="clear"></div>

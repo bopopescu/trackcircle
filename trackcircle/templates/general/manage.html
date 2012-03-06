@@ -1,35 +1,73 @@
-{% extends "layout.html" %}
-{% block body %}
-  <h2>Manage</h2>
+{% extends "nonlanding.html" %}
+{% block pagetitle %}
+  Manage Uploaded Tracks
+{% endblock %}
+{% block nonlandingbody %}
   {% for track in tracks %}
-    <form method="POST" enctype="multipart/form-data" action="{{ url_for('.manage') }}">
-      <input type="hidden" name="track_id" value="{{ track.id }} " />
-      <div class="row">
-        <div class="span2">
-          {% if track.artwork_url %}
-            <img src="{{ track.artwork_url }}" width="100" height="100" />
-          {% endif %}
-          <img src="http://graph.facebook.com/{{ track.user.facebook_id }}/picture?type=square" />        
+    <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{ url_for('.manage') }}">
+      <fieldset>
+        <input type="hidden" name="track_id" value="{{ track.id }} " />
+        
+        <div class="control-group">
+          <label class="control-label"><strong>Uploaded by <em>{{ track.user.first_name }}</em></strong>
+            <br />
+            Track #{{ track.id }}
+            </label>
+          <div class="controls docs-input-sizes">
+            <img src="http://graph.facebook.com/{{ track.user.facebook_id }}/picture?type=square" /> 
+            {% if track.artwork_url %}
+              <img src="{{ track.artwork_url }}" width="50" height="50" />
+            {% endif %}
+          </div>
         </div>
-        <div class="span9">
-          <div>
+        
+        <div class="control-group">
+          <label class="control-label" for="artist"><strong>Artist</strong></label>
+          <div class="controls docs-input-sizes">
+            <input class="span6" type="text" name="artist" value="{{ track.artist }}" /> 
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="title"><strong>Song Title</strong></label>
+          <div class="controls docs-input-sizes">
+            <input class="span6" type="text" name="title" value="{{ track.title }}" /> 
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="year"><strong>Year</strong></label>
+          <div class="controls docs-input-sizes">
+            <input class="span6" type="text" name="year" value="{{ track.year }}" /> 
+          </div>
+        </div>
+        
+        <div class="control-group">
+          <label class="control-label" for="artwork_url">
+            <strong>Artwork URL</strong>
+            
+          </label>
+          <div class="controls docs-input-sizes">
+            <input class="span6" type="text" name="artwork_url" value="{{ track.artwork_url }}" />
+            
+          </div>
+        </div>
+        
+        <div class="control-group">
+          <label class="control-label" for="year"><strong>Play Test</strong></label>
+          <div class="controls docs-input-sizes">
             <p id="audioplayer_{{ track.id }}"></p>
           </div>
-          <input type="text" name="artist" value="{{ track.artist }}" /> 
-          <input type="text" name="title" value="{{ track.title }}" />
-          <input type="text" name="year" size="4" value="{{ track.year }}" />
-          <br />
-          <input type="text" name="artwork_url" value="{{ track.artwork_url }}" />
-          <br />
-          <em>uploaded by {{ track.user.first_name }}</em>
-          <br /><br />
-          <input type="submit" value="Edit" />
-          <script type="text/javascript">  
-          AudioPlayer.embed("audioplayer_{{ track.id }}", {soundFile: "{{ track.url }}"});  
-          </script>
         </div>
-      </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Edit Metadata</button>
+        </div>
+      </fieldset>
     </form>
+    <script type="text/javascript">  
+    AudioPlayer.embed("audioplayer_{{ track.id }}", {soundFile: "{{ track.url }}"});  
+    </script>
   {% endfor %}
   
 {% endblock %}
+
+     

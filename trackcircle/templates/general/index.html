@@ -46,14 +46,15 @@
   </div>
   
   <div class="clear"></div>
-  <div id="current-track-title" class="tk-freight-sans-pro">
+  <div id="current-track-title">
     {{ first_track.title }}
   </div>
   <div id="current-track-container">
     
     <div id="current-track-meta">
-      <div id="current-track-artist">{{ first_track.artist }}</div>
-      <div id="current-track-year"> {{ first_track.year }}</div>
+      <span id="current-track-artist">{{ first_track.artist }}</span> /
+      <span id="current-track-year"> {{ first_track.year }} </span>
+      
     </div>
     <div class="clear"></div>
     

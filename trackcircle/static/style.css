@@ -124,8 +124,8 @@ body {
 
 
 #current-track-container {
-  border-top: 5px solid #222222;
-  padding-top: 10px;
+  border-top: 1px solid #999;
+  padding-top: 5px;
 }
 
 #current-track-title {
@@ -133,14 +133,14 @@ body {
   font-size: 36px;
   line-height: 36px;
   font-weight: 300;
-  font-style: italic;
+  font-weight: 200;
   color: #10022c;
+  text-align: center;
 }
 
 #current-track-meta {
-  float: right;
-  width: 360px;
-  text-align: right;
+  
+  text-align: center;
   font-size: 22px;
   text-transform: uppercase;
   line-height: 22px;
@@ -206,6 +206,23 @@ body {
   background-color: #cdc7d8;
   color: #43306b;
   font-weight: bold;
+}
+
+/* Other pages */
+#nonlanding-container {
+  margin-top: 140px;
+  border-top: 10px solid #eee;
+  padding-top: 20px;
+}
+
+#nonlanding-container h2 {
+  display: block;
+  text-align: right;
+  padding-right: 10px;
+  padding-bottom: 20px;
+  height: 45px;
+  border-bottom: 10px solid #eee;
+  margin-bottom: 20px;
 }
 
 
