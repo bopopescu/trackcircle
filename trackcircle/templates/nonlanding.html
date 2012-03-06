@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block body %}
+  <div id="nonlanding-container">
+    <h2>{% block pagetitle %}{% endblock %}</h2>
+    {% for message in get_flashed_messages() %}
+      <div class="alert alert-block">
+        {{ message }}
+      </div>
+    {% endfor %}
+    {% block nonlandingbody %}{% endblock %}
+  </div>
+{% endblock %}
