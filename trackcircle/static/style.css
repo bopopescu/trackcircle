@@ -44,14 +44,39 @@ body {
   width: 745px;
 }
 
+
 #album-art-main {
   float: left;
   width: 450px;
-  height: 450px;
-  margin-top: 52px;
   margin-right: 20px;
 }
 
+#now-playing-user-details-container {
+  text-align: left;
+  margin-bottom: 10px;
+  border-bottom: 10px solid #ddd;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  padding-top: 70px;
+  height: 60px;
+}
+
+#now-playing-user-image {
+  float: right;
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+  border-radius: 5px;
+  border: 1px solid #fff;
+}
+
+#now-playing-user-meta {
+  float: right;
+  width: 300px;
+  padding-top: 10px;
+  text-align: right;
+}
+  
 
 
 
@@ -65,20 +90,12 @@ body {
 
 #now-playing-booth {
   width: 275px;
-  height: 157px;
+  height: 107px;
   background: transparent url(/img/now-playing-booth.png) no-repeat top left;
+  padding-top: 50px;
   margin-bottom: 1px;
 }
 
-#now-playing-user-pic {
-  float: left;
-  margin-top: 5px;
-  margin-left: 192px;
-  
-  width: 50px;
-  height: 48px;
-  overflow: hidden;
-}
 
 
 #now-playing-progress {
@@ -113,6 +130,11 @@ body {
   
 }
 
+#playlist-controls-container {
+  margin-top: 13px;
+  margin-bottom: 10px;
+}
+
 #track-control-prev-pause-next {
   float: left;
   width: 275px;
@@ -124,14 +146,14 @@ body {
 
 
 #current-track-container {
-  border-top: 1px solid #999;
+  
   padding-top: 5px;
 }
 
 #current-track-title {
   padding: 20px 30px;
-  font-size: 36px;
-  line-height: 36px;
+  font-size: 24px;
+  line-height: 24px;
   font-weight: 300;
   font-weight: 200;
   color: #10022c;
@@ -139,14 +161,17 @@ body {
 }
 
 #current-track-meta {
-  
+  border-bottom: 10px solid #222;
+  padding-bottom: 20px;
   text-align: center;
-  font-size: 22px;
+  font-size: 18px;
   text-transform: uppercase;
-  line-height: 22px;
+  line-height: 18px;
   letter-spacing: 1px;
   color: #666;
 }
+
+
 
 #current-track-details-container {
   margin-top: 10px;
@@ -190,20 +215,31 @@ body {
 }
 
 #playlist {
-  height: 285px;
+  border-style: solid;
+  border-color: #c0c0c0;
+  border-width: 1px 1px 3px 1px;
   overflow: hidden;
+}
+
+#playlist div:first-child {
+  background-color: #666;
+  color: #bbb;
+  text-shadow: 0px 1px 0px #000;
+  letter-spacing: 5px;
+  text-align: center;
 }
 
 .track-row {
   background-color: #f0f0f0;
   padding: 5px 10px;
-  margin-bottom: 1px;
   color: #696969;
   text-shadow: 0 1px 0 #fff;
+  border-bottom: 1px solid #ddd;
 }
 
 .track-row.active {
   background-color: #cdc7d8;
+  border-bottom: 1px solid #9589AA;
   color: #43306b;
   font-weight: bold;
 }

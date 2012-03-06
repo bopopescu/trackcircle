@@ -1,16 +1,64 @@
 {% extends "layout.html" %}
 {% block body %}
   <div id="album-art-main">
+    <div id="now-playing-user-details-container">
+      <img id="now-playing-user-image" src="http://graph.facebook.com/{{ first_track.user.facebook_id }}/picture?type=square" />  
+      <div id="now-playing-user-meta">
+        Uploaded by <strong>{{ first_track.user.first_name }}</strong>
+        <br />
+        on {{ first_track.prettytime }}
+      </div>
+      <div class="clear"></div>
+    </div>
+
     <img id="current-track-album-art" src="{{ first_track.artwork_url }}" />
+    
+    <div id="current-track-title">
+      {{ first_track.title }}
+    </div>
+    <div id="current-track-container">
+
+      <div id="current-track-meta">
+        <span id="current-track-artist">{{ first_track.artist }}</span> /
+        <span id="current-track-year"> {{ first_track.year }} </span>
+
+      </div>
+      <div class="clear"></div>
+
+      <div id="current-track-details-container">
+        <div id="current-track-notes">
+          {{ first_track.notes }}
+        </div>
+        <div id="current-track-options">
+          <!--
+          <div>
+            <a href="{{ first_track.url }}"><img src="/img/mock-download-button.png" /></a>
+          </div>
+          -->
+          <div>
+            <!--
+            <ul class="unstyled" id="current-track-listed-info">
+              <li>{{ first_track.prettytime }}</li>
+              <li>11.3 MB</li>
+
+              {% if first_track.bpm and first_track.bpm > 0 %}
+                <li>{{ first_track.bpm }}</li>
+              {% endif %}
+            </ul>
+            -->
+          </div>
+
+
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+    
+    
   </div>
   
   <div id="controls-column">
     <div id="now-playing-booth">
-      <div id="now-playing-user-pic">
-        <img src="http://graph.facebook.com/{{ first_track.user.facebook_id }}/picture?type=square" />  
-      </div>
-      <div class="clear"></div>
-      
       <div id="now-playing-progress">
         <div id="now-playing-progress-bar">
         
@@ -37,6 +85,9 @@
     </div>
     
     <div id="playlist">
+      <div class="track-row">
+        COMING UP
+      </div>
     {% for track in tracks %}
       <div class="track-row" id="track-row-{{ track.id }}">
         <a href="#" onclick="javascript:playSong('track-{{ track.id }}')">{{ track.artist }}</a> - {{ track.title }} 
@@ -46,46 +97,7 @@
   </div>
   
   <div class="clear"></div>
-  <div id="current-track-title">
-    {{ first_track.title }}
-  </div>
-  <div id="current-track-container">
-    
-    <div id="current-track-meta">
-      <span id="current-track-artist">{{ first_track.artist }}</span> /
-      <span id="current-track-year"> {{ first_track.year }} </span>
-      
-    </div>
-    <div class="clear"></div>
-    
-    <div id="current-track-details-container">
-      <div id="current-track-notes">
-        {{ first_track.notes }}
-      </div>
-      <div id="current-track-options">
-        <!--
-        <div>
-          <a href="{{ first_track.url }}"><img src="/img/mock-download-button.png" /></a>
-        </div>
-        -->
-        <div>
-          <!--
-          <ul class="unstyled" id="current-track-listed-info">
-            <li>{{ first_track.prettytime }}</li>
-            <li>11.3 MB</li>
-          
-            {% if first_track.bpm and first_track.bpm > 0 %}
-              <li>{{ first_track.bpm }}</li>
-            {% endif %}
-          </ul>
-          -->
-        </div>
-        
-        
-      </div>
-      <div class="clear"></div>
-    </div>
-  </div>
+  
 
 {% endblock %}
 <div>
