@@ -22,6 +22,12 @@ MODULES = (
 for module in MODULES:
     app.register_blueprint(module)
     
+def logged_in():
+    if g.user:
+        return True
+    return False
+
+    
 @app.before_request
 def before_request():
     g.user = None

@@ -244,6 +244,31 @@ body {
   font-weight: bold;
 }
 
+/* Comments */
+#comments {
+  margin: 20px 0;
+}
+
+.comment-row {
+  padding: 5px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+}
+
+.comment-row img {
+  float: left;
+  margin: 0 20px 0 0;
+}
+
+.comment-row span {
+  font-style: italic;
+  display: block;
+}
+
+.comment-row div {
+  padding: 5px;
+}
+
 /* Other pages */
 #nonlanding-container {
   margin-top: 140px;
