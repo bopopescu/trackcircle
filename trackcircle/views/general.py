@@ -10,7 +10,7 @@ from trackcircle.facebook import facebook
 from werkzeug import secure_filename
 from datetime import datetime
 
-
+import json
 from pprint import pprint
 
 mod = Blueprint('general', __name__)
@@ -24,10 +24,14 @@ def allowed_file(filename):
 @mod.route('/')
 def index():
     me = None
-    tracks = Track.query.order_by(Track.id.desc()).all()
+    tracks = Track.query.order_by(Track.id.desc()).limit(10).all()
     if g.user:
         me = g.user
-    return render_template('general/index.html', me=me, tracks=tracks)
+    first_track = tracks[0]
+    #tracks = tracks[1:len(tracks)]
+    tracksjson = json.dumps([t.serialized() for t in tracks])
+    print tracksjson
+    return render_template('general/index.html', me=me, first_track=first_track, tracks=tracks, tracksjson=tracksjson)
 
 @mod.route('/login', methods=['GET', 'POST'])
 def login():
@@ -93,7 +97,26 @@ def upload():
         return redirect(url_for('general.upload'))        
     return render_template('general/upload.html', me=g.user)
 
-
+@mod.route('/manage', methods=['GET','POST'])
+@auth_required
+def manage():
+    if request.method == 'POST' and request.form['track_id']:
+        track = Track.query.filter(Track.id == request.form['track_id']).first()
+        if not track:
+            flash('No Track with id %r found. Cannot edit' % (request.form['track_id'],))
+            return redirect(url_for('.manage'))
+        track.artist = request.form['artist']
+        track.title = request.form['title']
+        track.year = request.form['year']
+        track.artwork_url = request.form['artwork_url']
+        track.save()
+        flash('Saved track with id %r successfully.' % (request.form['track_id'],))
+        
+    tracks = Track.query.order_by(Track.id.desc()).all()
+    if g.user:
+        me = g.user
+    return render_template('general/manage.html', me=me, tracks=tracks)
+    
     
 @mod.route('/logout')
 @auth_required

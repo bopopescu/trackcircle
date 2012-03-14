@@ -1,13 +1,16 @@
-{% extends "layout.html" %}
-{% block body %}
-  <h2>Upload</h2>
-  <form method="POST" enctype="multipart/form-data" action="{{ url_for('.upload') }}">
+{% extends "nonlanding.html" %}
+{% block pagetitle %}
+  Upload New Music
+{% endblock %}
+{% block nonlandingbody %}
+  <div class="alert alert-info">
+    Please select an mp3 on your computer to upload.
+  </div>
+  <form class="well form-search" method="POST" enctype="multipart/form-data" action="{{ url_for('.upload') }}">
     <div id="uploader">
-      <input type="file" name="uploaded_file" />
-      <input type="submit" value="Upload" />
+      <input type="file" name="uploaded_file" size="40" />
+      &nbsp; 
+      <button class="btn btn-primary" type="submit">Upload File</button>
     </div>
   </form>
-  
-  <ul id="result">
-  </ul>
 {% endblock %}

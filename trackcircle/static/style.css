@@ -1,89 +1,266 @@
 html, body {
-  height: 100%;
-}
-
-.topbar {
-  position: relative;
-  margin: 0 auto;
-  width: 1020px;
-  background-color: #fff;
-  color: #000;
 
 }
-#main-container a:link, #main-container a:hover, 
-#main-container a:visited, #main-container a:active {
-  /* color: #1D74B1; */
-}
 
-#main-container a:active {
-  text-decoration: none;
+a:link, a:hover, a:visited, a:active {
+  color: #444;
+  
 }
 
 body {
   /* padding-top: 40px; */
-  background-color: #f0f0f0;
+  background-color: #fff;
+  padding-top: 20px;
 }
 
 #main-container {
-  background-color: #fff;
   width: 980px;
-  padding: 0 0px 0 40px;
 }
 
 #content-container {
   padding: 20px 10px;
 }
 
-#top-banner {
-  position: relative;
-  margin: 0 auto;
-  height: 285px;
-  width: 1020px;
-  background: #f0f0f0 url(/img/track_circle_stereo.png) no-repeat top center;
-  color: #fff;
-  border-bottom: 10px solid #666;
+/* Let main column for logo and menu */
 
+#logo-column {
+  float: left;
+  width: 190px;
+  text-align: right;
+  margin-top: 52px;
+  margin-right: 20px;
 }
 
-#right-bar {
+#nav-left {
+  text-align: right;
+  margin-top: 50px;
+  margin-right: 10px;
+}
+
+/* Audio Player container column for artwork, playlist & content */
+
+#player-column {
+  float: left;
+  width: 745px;
+}
+
+
+#album-art-main {
+  float: left;
+  width: 450px;
+  margin-right: 20px;
+}
+
+#now-playing-user-details-container {
+  text-align: left;
+  margin-bottom: 10px;
+  border-bottom: 10px solid #ddd;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  padding-top: 70px;
+  height: 60px;
+}
+
+#now-playing-user-image {
   float: right;
-  background-color: #fff;
-  min-height: 1000px;
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+  border-radius: 5px;
+  border: 1px solid #fff;
 }
 
-.blog-entry {
+#now-playing-user-meta {
+  float: right;
+  width: 300px;
+  padding-top: 10px;
+  text-align: right;
+}
+  
+
+
+
+/* Right hand side column */
+
+#controls-column {
+  float: left;
+  width: 275px;
+  height: 520px;
+}
+
+#now-playing-booth {
+  width: 275px;
+  height: 107px;
+  background: transparent url(/img/now-playing-booth.png) no-repeat top left;
+  padding-top: 50px;
+  margin-bottom: 1px;
+}
+
+
+
+#now-playing-progress {
+  float: left;
+  margin-top: 30px;
+  margin-left: 40px;
+  width: 120px;
+  background-color: #e0d2ff;
+  height: 10px;
+}
+
+#now-playing-progress-bar {
+  background-color: #43306b;
+  width: 10%;
+  height: 8px;
+  margin: 1px;
+}
+
+#now-playing-meta {
+  float: left;
+  width: 90px;
+  height: 35px;
+  margin-top: 8px;
+  margin-left: 70px;
+  text-align: right;
+  color: #e0d2ff;
+  font-size: 14px;
+  text-shadow: 0 1px 0 #000;
+  line-height: 12px;
+  text-transform: uppercase;
+  
   
 }
 
-.blog-title {
-  float: right;
-  font-size: 2em;
+#playlist-controls-container {
+  margin-top: 13px;
+  margin-bottom: 10px;
+}
+
+#track-control-prev-pause-next {
+  float: left;
+  width: 275px;
+  height: 45px;
+  margin-left: 2px;
+  margin-bottom: 10px;
+}
+
+
+
+#current-track-container {
+  
+  padding-top: 5px;
+}
+
+#current-track-title {
+  padding: 20px 30px;
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: 300;
+  font-weight: 200;
+  color: #10022c;
+  text-align: center;
+}
+
+#current-track-meta {
+  border-bottom: 10px solid #222;
+  padding-bottom: 20px;
+  text-align: center;
+  font-size: 18px;
+  text-transform: uppercase;
+  line-height: 18px;
+  letter-spacing: 1px;
+  color: #666;
+}
+
+
+
+#current-track-details-container {
+  margin-top: 10px;
+  padding-top: 20px;
+  
+}
+
+#current-track-notes {
+  float: left;
+  width: 420px;
+  height: 185px;
+  overflow: auto;
+  padding: 0 15px;
   line-height: 2em;
-  color: #722305;
+  color: #333;
+  margin-right: 10px;
+  text-align: justify;
 }
 
-.blog-meta {
-  margin-top: 5px;
-  height: 160px;
-  background: transparent url(/img/blog-meta-bg.gif) no-repeat top left;
-  text-shadow: -1px 0 0 #597881;
-  color: #fff;
+#current-track-options {
+  float: right;
   text-align: right;
-  font-style: italic;
+  margin-top: 9px;
+  width: 200px;
+  line-height: 1.3em;
 }
 
-.blog-meta div {
-  padding-right: 10px;
+#current-track-options div {
+  margin-bottom: 10px;
+}
+
+#current-track-listed-info {
+  border-top: 1px solid #ddd;
   padding-top: 10px;
+  margin-right: 10px;
+  color: #11636e;
 }
 
-.blog-text {
-  padding-bottom: 16px;
-  margin-bottom: 16px;
-  border-bottom: 2px solid #eee;
-  min-height: 200px;
-  line-height: 1.75em;
+#current-track-listed-info li {
+  font-weight: bold;
 }
+
+#playlist {
+  border-style: solid;
+  border-color: #c0c0c0;
+  border-width: 1px 1px 3px 1px;
+  overflow: hidden;
+}
+
+#playlist div:first-child {
+  background-color: #666;
+  color: #bbb;
+  text-shadow: 0px 1px 0px #000;
+  letter-spacing: 5px;
+  text-align: center;
+}
+
+.track-row {
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  color: #696969;
+  text-shadow: 0 1px 0 #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.track-row.active {
+  background-color: #cdc7d8;
+  border-bottom: 1px solid #9589AA;
+  color: #43306b;
+  font-weight: bold;
+}
+
+/* Other pages */
+#nonlanding-container {
+  margin-top: 140px;
+  border-top: 10px solid #eee;
+  padding-top: 20px;
+}
+
+#nonlanding-container h2 {
+  display: block;
+  text-align: right;
+  padding-right: 10px;
+  padding-bottom: 20px;
+  height: 45px;
+  border-bottom: 10px solid #eee;
+  margin-bottom: 20px;
+}
+
 
 .clear {
   clear: both;

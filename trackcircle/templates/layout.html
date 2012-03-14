@@ -1,69 +1,203 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <head>
-  <title>Trackcircle</title>
+  <title>Tempo Arcade!</title>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   <script type="text/javascript" language="Javascript" src="{{ url_for('static', filename='audio-player.js') }}"></script>
+  <script type="text/javascript" language="Javascript" src="{{ url_for('static', filename='soundmanager2.js') }}"></script>
+  <script type="text/javascript" language="Javascript" src="{{ url_for('static', filename='jquery-1.7.1.min.js') }}"></script>
   <script type="text/javascript">  
+      
       AudioPlayer.setup("{{ url_for('static', filename='player.swf') }}", {  
           width: 290  
-      });  
+      }); 
+      
+      var tracklist = [];
+      {% autoescape false %}
+      var trackInfo = {{ tracksjson }};
+      {% endautoescape %}
+      var currentTrack;
+       
+      soundManager.url = '/static/'; // directory where SM2 .SWFs live
+      soundManager.debugMode = true;
+      soundManager.flashPollingInterval = 100;
+      
+      soundManager.onready(function(){
+
+        // SM2 has loaded - now you can create and play sounds!
+        
+        {% for track in tracks %}
+          var smID = 'track-{{ track.id }}';
+          var smSound = soundManager.createSound({
+            id: smID,
+            url: '{{ track.url }}'
+          });
+          tracklist.push(smID);
+          if (!currentTrack) {
+            currentTrack = smSound;
+          }
+        {% endfor %}
+        
+        //mySound.play();
+        soundManager.mute();
+      });
+      
+      function getTrackData(trackID) {
+        var track;
+        for (var i in trackInfo) {
+          track = trackInfo[i];
+          var smID = 'track-' + track.id;
+          if (smID == trackID) {
+            return track;
+          }
+        }
+        return undefined;
+      }
+      
+      function initializeTrack(trackID) {
+        var data = getTrackData(trackID);
+        var sound = soundManager.createSound({
+          id: trackID,
+          url: data.url
+        });
+        return sound;
+      }
+        
+          
+      
+      
+      function playSong(trackID) {
+        if (currentTrack) {
+          currentTrack.stop();
+        }
+        
+        currentTrack = soundManager.getSoundById(trackID);
+        
+        if (!currentTrack) {
+          currentTrack = initializeTrack(trackID);
+        }
+        
+        if (currentTrack) {
+          
+          var data = getTrackData(trackID);
+          
+          currentTrack.options.whileloading = function () {
+            if (this.position <= 10) {
+              $('#now-playing-time-elapsed').text(Math.ceil(this.bytesLoaded / 1024) + 'kB');
+              $('#now-playing-progress-bar').css('width', (Math.abs(Math.floor((this.bytesLoaded / this.bytesTotal) * 100) - 2)) + '%');
+            }
+          };
+          
+          currentTrack.options.whileplaying = function () {
+            $('#now-playing-time-elapsed').text(getFormattedTime(this.position));
+            $('#now-playing-progress-bar').css('width', (Math.abs(Math.floor((this.position / this.duration) * 100) - 2)) + '%');
+          };
+          
+          currentTrack.options.onfinish = function () {
+            nextSong();
+          };
+          
+          
+          $('#current-track-album-art').attr('src', data.artwork_url);
+          $('#now-playing-user-image').attr('src', 'http://graph.facebook.com/' + data.facebook_id + '/picture?type=square')
+          $('#uploader-name').text(data.user_name)
+          $('#current-track-upload-time').text(data.prettytime)
+          $('#current-track-title').text(data.title);
+          $('#current-track-artist').text(data.artist);
+          $('#current-track-year').text(data.year);
+          $('#current-track-notes').text(data.notes);
+          
+          $('.track-row').removeClass('active');
+          $('#track-row-' + data.id).addClass('active');
+          
+          
+          
+          
+          currentTrack.play();
+        }
+      }
+      
+      function pauseResume() {
+        if (currentTrack) {
+          currentTrack.togglePause();
+        }
+      }
+      
+      
+      function nextSong() {
+        var targetTrack = tracklist[0];
+        var index = jQuery.inArray(currentTrack.sID, tracklist);
+        if (index < tracklist.length - 1) {
+          targetTrack = tracklist[index+1];
+        }
+        playSong(targetTrack);
+      }
+      
+      function prevSong() {
+        var targetTrack = tracklist[tracklist.length-1];
+        var index = jQuery.inArray(currentTrack.sID, tracklist);
+        if (index != 0) {
+          targetTrack = tracklist[index-1];
+        }
+
+        playSong(targetTrack);
+      }
+      
+      function getFormattedTime(millisecs) {
+        if (millisecs <= 0) { return "0:00" }
+        
+        var mins = 0, secs = 0;
+        secs = Math.floor(millisecs / 1000);
+        mins = Math.floor(secs / 60);
+        if (mins > 0) {
+          secs -= mins * 60;
+        }
+        
+        if (secs < 10) {
+          secs = "0" + secs;
+        }
+        
+        return (mins + ":" + secs);
+      }
+              
+            
   </script>
+  <script type="text/javascript" src="http://use.typekit.com/ybo5pqd.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
 <body>
-  <div class="topbar-wrapper" style="z-index: 5;">
-    <div class="topbar" data-dropdown="dropdown" >
-      <div class="topbar-inner">
-        <div class="container">
-          <h3><a href="#">TrackCircle</a></h3>
-
-          <ul class="nav">
-            <li class="active"><a href="{{ url_for('general.index') }}">Tracks</a></li>
-            <li><a href="{{ url_for('general.upload') }}">Upload</a></li>
-            <!--
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle">Dropdown</a>
-
-              <ul class="dropdown-menu">
-                <li><a href="#">Secondary link</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Another link</a></li>
-              </ul>
-            </li>
-            -->
-          </ul>
-          <ul class="nav secondary-nav">              
-            {% if not g.user %}
-              <li><a href="{{ url_for('general.login') }}">Log In</a></li>
-            {% else %}
-
-              <li><a href="{{ url_for('general.logout') }}">Log Out</a></li>
-            {% endif %}              
-          </ul>
-
-        </div>
-      </div><!-- /topbar-inner -->
-    </div><!-- /topbar -->
-  </div><!-- /topbar-wrapper -->
-  <div id="top-banner">
-    
-  </div>
   <div class="container" id="main-container">
-
-    <div class="row">
-      <div id="content-container" class="span12">
-        
-        {% for message in get_flashed_messages() %}
-          <div class="alert-message">{{ message }}</div>
-        {% endfor %}
-        {% block body %}{% endblock %}    
+    <div id="logo-column">
+      <a href="{{ url_for('general.index') }}"><img src="/img/tempoarcade-logo-190.png" /></a>
+      <div id="nav-left">
+        <ul class="nav nav-list">
+          <li class="nav-header">The Arcade</li>
+          <li>
+            <a href="{{ url_for('general.index') }}">Tracks</a></li>
+          </li>
+          {% if not g.user %}
+            <li>
+              <a href<a href="{{ url_for('general.login') }}">Log In</a>
+            </li>
+          {% else %}
+            <li class="nav-header">Welcome Back, {{ g.user.first_name }}</li>
+            <li>
+              <li><a href="{{ url_for('general.upload') }}">New Song</a></li>
+            </li>
+            <li>
+              <li><a href="{{ url_for('general.manage') }}">Manage Songs</a></li>
+            </li>
+            <li>
+              <a href="{{ url_for('general.logout') }}">Log Out</a>
+            </li>
+          {% endif %}
+        </ul>
       </div>
-      <div id="right-bar" class="span4">
-        {% block sidebar %}{% endblock %}  
-      </div>
-      <div class="clear"></div>
     </div>
+    <div id="player-column">
+      {% block body %}{% endblock %}
+    </div>
+    <div class="clear"></div>
   </div>
 </body>
 </html>
