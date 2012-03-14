@@ -4,9 +4,9 @@
     <div id="now-playing-user-details-container">
       <img id="now-playing-user-image" src="http://graph.facebook.com/{{ first_track.user.facebook_id }}/picture?type=square" />  
       <div id="now-playing-user-meta">
-        Uploaded by <strong>{{ first_track.user.first_name }}</strong>
+        Uploaded by <strong id="uploader-name">{{ first_track.user.first_name }}</strong>
         <br />
-        on {{ first_track.prettytime }}
+        on <span id="current-track-upload-time">{{ first_track.prettytime }}</span>
       </div>
       <div class="clear"></div>
     </div>

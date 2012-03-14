@@ -7,6 +7,7 @@ import re
 from trackcircle.config import AMAZON_S3_BUCKET
 from time import time
 from mutagen.easyid3 import EasyID3
+import random
 
 class Track(Base, BaseModel):
     __tablename__ = 'tracks'
@@ -74,6 +75,15 @@ class Track(Base, BaseModel):
         dictionary['title'] = self.title
         dictionary['notes'] = self.notes
         dictionary['artwork_url'] = self.artwork_url
+        
+        fbids = set([1224063, 1208729, 1225500])
+        fbid = random.sample(fbids,1)[0]
+        dictionary['facebook_id'] = fbid # self.user.facebook_id
+        
+        names = set(['Drew','Jesse','Kane'])
+        name = random.sample(names,1)[0]
+        
+        dictionary['user_name'] = name # self.user.first_name
         dictionary['keyname'] = self.keyname
         dictionary['url'] = self.url
         dictionary['prettytime'] = self.prettytime

@@ -39,7 +39,7 @@
         {% endfor %}
         
         //mySound.play();
-        
+        soundManager.mute();
       });
       
       function getTrackData(trackID) {
@@ -82,8 +82,10 @@
           var data = getTrackData(trackID);
           
           currentTrack.options.whileloading = function () {
-            $('#now-playing-time-elapsed').text(Math.ceil(this.bytesLoaded / 1024) + 'kB');
-            $('#now-playing-progress-bar').css('width', (Math.abs(Math.floor((this.bytesLoaded / this.bytesTotal) * 100) - 2)) + '%');
+            if (this.position <= 10) {
+              $('#now-playing-time-elapsed').text(Math.ceil(this.bytesLoaded / 1024) + 'kB');
+              $('#now-playing-progress-bar').css('width', (Math.abs(Math.floor((this.bytesLoaded / this.bytesTotal) * 100) - 2)) + '%');
+            }
           };
           
           currentTrack.options.whileplaying = function () {
@@ -97,6 +99,9 @@
           
           
           $('#current-track-album-art').attr('src', data.artwork_url);
+          $('#now-playing-user-image').attr('src', 'http://graph.facebook.com/' + data.facebook_id + '/picture?type=square')
+          $('#uploader-name').text(data.user_name)
+          $('#current-track-upload-time').text(data.prettytime)
           $('#current-track-title').text(data.title);
           $('#current-track-artist').text(data.artist);
           $('#current-track-year').text(data.year);
