@@ -24,7 +24,36 @@
 
       </div>
       <div class="clear"></div>
+      <br /><br />
+      <div id="comments">
+        {% for comment in comments %}
+          <div class="comment-row">
+            <img id="comment-{{ comment.id }}" src="http://graph.facebook.com/{{ comment.user.facebook_id }}/picture?type=square" />
+            <span>{{ comment.prettytime }}</span>
+            <div>{{ comment.comment }}</div>
+            <div class="clear"></div>
+          </div>
+        {% endfor %}
+        
+        <form class="form-horizontal" method="POST" action="{{ url_for('.comment') }}">
+          <fieldset>
+            <input type="hidden" name="track_id" id="comment_track_id" value="{{ first_track.id }} " />
 
+            <div class="control-group">
+              <label class="control-label" for="comment">
+                <img src="http://graph.facebook.com/{{ g.user.facebook_id }}/picture?type=square" /> 
+                </label>
+              <div class="controls docs-input-sizes">
+                <textarea type="text" size="span5" name="comment" rows="4"></textarea>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Add Comment</button>
+            </div>
+          </fieldset>
+        </form>
+        
+      </div>
       <div id="current-track-details-container">
         <div id="current-track-notes">
           {{ first_track.notes }}

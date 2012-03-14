@@ -5,6 +5,7 @@ from flask import Flask, request, session, g, redirect, url_for, \
 from trackcircle import app, bucket
 from trackcircle.models import User
 from trackcircle.models import Track
+from trackcircle.models import Comment
 from trackcircle.wrappers import auth_required
 from trackcircle.facebook import facebook
 from werkzeug import secure_filename
@@ -28,10 +29,11 @@ def index():
     if g.user:
         me = g.user
     first_track = tracks[0]
-    #tracks = tracks[1:len(tracks)]
     tracksjson = json.dumps([t.serialized() for t in tracks])
-    print tracksjson
-    return render_template('general/index.html', me=me, first_track=first_track, tracks=tracks, tracksjson=tracksjson)
+    
+    comments = Comment.query.filter(Comment.track_id == first_track.id).order_by(Comment.id.desc()).all()
+    return render_template('general/index.html', me=me, first_track=first_track, \
+                            tracks=tracks, tracksjson=tracksjson, comments=comments)
 
 @mod.route('/login', methods=['GET', 'POST'])
 def login():
@@ -65,6 +67,17 @@ def authorized(resp):
     return redirect(url_for('general.index'))
 
 
+@mod.route('/comment', methods=['POST'])
+@auth_required
+def comment():
+    comment = Comment(request.form['track_id'], g.user.id, request.form['comment'])
+    if comment:
+        comment.create()
+        flash('Commented on %r successfully' % (comment.track.title,))
+        return redirect(url_for('general.index'))
+    flash('Failed to create comment')
+    return redirect(url_for('general.index'))
+    
             
 @mod.route('/upload', methods=['GET','POST'])
 @auth_required
